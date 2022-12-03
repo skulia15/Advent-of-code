@@ -10,4 +10,9 @@ const listList = resultSplit.map((x: string) => {
 const sumArray = listList.map((x) => {
     return x.reduce((partialSum, a) => partialSum + parseInt(a), 0);
 });
-console.log(Math.max(...sumArray));
+const sorted = sumArray.sort((a: number, b: number) => a - b).reverse();
+console.log('elves carrying the most calories is:', Math.max(...sumArray));
+console.log(
+    'Sum of top 3 elves is:',
+    sorted.slice(0, 3).reduce((partialSum, a) => partialSum + a, 0)
+);
