@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 
-let line1 = ['F', 'G', 'V', 'R', 'J', 'L',].reverse()
+let line1 = ['F', 'G', 'V', 'R', 'J', 'L', 'D'].reverse()
 let line2 = ['S', 'J', 'H', 'V', 'B', 'M', 'P', 'T'].reverse()
 let line3 = ['C', 'P', 'G', 'D', 'F', 'M', 'H', 'V'].reverse()
 let line4 = ['Q', 'G', 'N', 'P', 'D', 'M'].reverse()
@@ -22,24 +22,16 @@ const GetMoveCommands = (input: string[]) => {
 }
 
 const PerformMove = (countMoves: number, moveFrom: number, moveTo: number) => {
-    console.log('countMoves', countMoves)
-    console.log('moveFrom', moveFrom)
-    console.log('moveTo', moveTo)
-
     const moveFromStack = stacks[moveFrom]
-    console.log('moveFromStack', moveFromStack)
     const moveToStack = stacks[moveTo]
-    console.log('moveToStack', moveToStack)
     for (let index = 0; index < countMoves; index++) {
         const elemToMove = moveFromStack.pop()
         if (elemToMove) {
             moveToStack.push(elemToMove)
         }
     }
-    console.log('moved from ', moveFromStack)
-    console.log('moved to ', moveToStack)
-
 }
+
 
 const GetLastElements = (myList: string[][]) => {
     // Iterate over the list of arrays
@@ -57,18 +49,9 @@ const moveCommands = GetMoveCommands(lines)
 
 let i = 0
 moveCommands.map(command => {
-    const firstSplit = command.split('move ')[1]
-    const countMoves = parseInt(firstSplit[0])
-
-    const secondSplit = command.split(' from ')[1]
-    const moveFrom = parseInt(secondSplit[0]) - 1
-    const moveTo = parseInt(secondSplit[5]) - 1
-
-    // console.log(stacks)
-    PerformMove(countMoves, moveFrom, moveTo)
-    // console.log(stacks)
+    let [move, countMoves, from, moveFrom, to, moveTo] = command.split(' ');
+    PerformMove(+countMoves, +moveFrom-1, +moveTo-1)
     i++
-
 })
 
 
